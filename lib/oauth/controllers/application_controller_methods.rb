@@ -81,7 +81,7 @@ module OAuth
       def current_token=(token)
         @current_token=token
         if @current_token
-          @current_user=@current_token.user
+          @_current_user=@current_token.user
           @current_client_application=@current_token.client_application 
         end
         @current_token
@@ -98,8 +98,8 @@ module OAuth
             # return the token secret and the consumer secret
             [(current_token.nil? ? nil : current_token.secret), (current_client_application.nil? ? nil : current_client_application.secret)]
           end
-          # reset @current_user to clear state for restful_...._authentication
-          @current_user = nil if (!valid)
+          # reset @_current_user to clear state for restful_...._authentication
+          @_current_user = nil if (!valid)
           valid
         rescue
           false
